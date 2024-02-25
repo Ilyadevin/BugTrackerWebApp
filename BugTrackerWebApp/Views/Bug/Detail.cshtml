@@ -1,0 +1,41 @@
+﻿@model Bug
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">
+        Detail page of @Model.Title
+    </h1>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-8">
+            <img class="img-fluid" src="@Model.ScreenShotOfError" alt="">
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">@Model.Title</h3>
+            <p>@Model.Description</p>
+            <h3 class="my-3">Bug Details</h3>
+            <ul>
+                <li>Bug was created at: @Model.CreatedDate.Value.DayOfYear</li>
+                @if(Model.ResolvedDate is null)
+                {
+                    <li>Bug was not resolved yet</li>
+                }
+                else
+                {
+                    <li>Bug was resolved at:@Model.ResolvedDate</li>
+                }
+                <li>Bug status is @Model.Status</li>
+                <li>Bug criticality is @Model.Criticality</li>
+            </ul>
+        </div>
+</div>
+<!-- /.container -->

@@ -1,0 +1,31 @@
+﻿@model Task_
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container">
+    <h1 class="my-4">
+        Detail page of @Model.Title
+    </h1>
+    <div class="row">
+        <div class="col-md-4">
+            <h3 class="my-3">@Model.Title</h3>
+            <p>@Model.Description</p>
+            <h3 class="my-3">Task Details</h3>
+            <ul>
+                <li>Task was created at: @Model.CreatedDate.Value.DayOfYear</li>
+                @if (Model.CompletedDate is null)
+                {
+                    <li>Task was not resolved yet</li>
+                }
+                else
+                {
+                    <li>Task was resolved at:@Model.CompletedDate</li>
+                }
+                <li>Task status is @Model.Status</li>
+                <li>Task criticality is @Model.Priority </li>
+            </ul>
+        </div>
+    </div>
+</div>

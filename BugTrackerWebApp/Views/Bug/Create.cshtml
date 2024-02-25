@@ -1,0 +1,40 @@
+﻿@using BugTrackerWebApp.Data.Enum
+@model Bug
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" type="text" class="form-control" placeholder="Enter the title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" type="text" class="form-control" placeholder="Enter the description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Criticality">Criticality</label>
+        <select asp-for="Criticality" asp-items="@Html.GetEnumSelectList<BugPriority>()" class="form-control">
+            <option>---Select---</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status">Status</label>
+        <select asp-for="Status" asp-items="@Html.GetEnumSelectList<BugStatus>()" class="form-control">
+            <option>---Select---</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ScreenShotOfError">ScreenShotOfError</label>
+        <input asp-for="ScreenShotOfError" type="file" class="form-control" placeholder="ScreenShotOfError">
+        <span asp-validation-for="ScreenShotOfError" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
