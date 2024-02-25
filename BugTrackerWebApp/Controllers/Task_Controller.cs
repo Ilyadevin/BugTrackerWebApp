@@ -1,4 +1,5 @@
 ﻿using BugTrackerWebApp.Data;
+using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,22 +7,22 @@ namespace BugTrackerWebApp.Controllers
 {
     public class Task_Controller : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITaskRepository _taskRepository;
 
-        public Task_Controller(ApplicationDbContext context)
+        public Task_Controller(ITaskRepository taskRepository)
         {
-            _context = context;
+            _taskRepository = taskRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var tasks = _context.Tasks.ToList();
+            IEnumerable<Task_> tasks = await _taskRepository.GetAll();
             return View(tasks);
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            Task_ task = _context.Tasks.FirstOrDefault(bug => bug.Id == id);
-            return View(task);
+            Task_ projects = await _taskRepository.GetByIdAsync(id);
+            return View(projects);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BugTrackerWebApp.Data;
+using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,22 +7,20 @@ namespace BugTrackerWebApp.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public ProjectController(ApplicationDbContext context)
+        private readonly IProjectRepository _projectRepository;
+        public ProjectController(IProjectRepository projectRepository)
         {
-            _context = context;
+            _projectRepository = projectRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var projects = _context.Projects.ToList();
-
+            IEnumerable<Project> projects = await _projectRepository.GetAll();
             return View(projects);
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            Project project = _context.Projects.FirstOrDefault(bug => bug.Id == id);
+            Project project = await _projectRepository.GetByIdAsync(id);
             return View(project);
         }
     }
