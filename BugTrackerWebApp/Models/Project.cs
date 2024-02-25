@@ -11,5 +11,6 @@ namespace BugTrackerWebApp.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public ProjectStatus? Status { get; set; }
+        public string? ProjectLink { get; set; }
     }
 }
