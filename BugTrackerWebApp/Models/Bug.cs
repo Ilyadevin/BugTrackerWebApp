@@ -1,7 +1,4 @@
 ﻿using BugTrackerWebApp.Data.Enum;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BugTrackerWebApp.Models
 {
@@ -16,6 +13,7 @@ namespace BugTrackerWebApp.Models
         public DateTime? ResolvedDate { get; set; }
         public BugStatus? Status { get; set; }
         public BugPriority? Criticality { get; set; }
+        public string? ScreenShotOfError { get; set; }
 
     }
 }
