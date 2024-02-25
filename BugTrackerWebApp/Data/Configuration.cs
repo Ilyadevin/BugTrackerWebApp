@@ -9,33 +9,33 @@
 //            AutomaticMigrationsEnabled = false;
 //        }
 
-//        protected override void Seed(MyApplicationDbContext context)
+//        protected override void Seed(MyApplicationDbContext _context)
 //        {
 //            // Seed AppUsers
 //            foreach (var user in SeedData.GetAppUsers())
 //            {
-//                context.AppUsers.AddOrUpdate(u => u.Email, user);
+//                _context.AppUsers.AddOrUpdate(u => u.Email, user);
 //            }
 
 //            // Seed Projects
 //            foreach (var project in SeedData.GetProjects())
 //            {
-//                context.Projects.AddOrUpdate(p => p.Name, project);
+//                _context.Projects.AddOrUpdate(p => p.Name, project);
 //            }
 
 //            // Seed Bugs
-//            foreach (var bug in SeedData.GetBugs(context))
+//            foreach (var bug in SeedData.GetBugs(_context))
 //            {
-//                context.Bugs.AddOrUpdate(b => b.Title, bug);
+//                _context.Bugs.AddOrUpdate(b => b.Title, bug);
 //            }
 
 //            // Seed Tasks
-//            foreach (var task in SeedData.GetTasks(context))
+//            foreach (var task in SeedData.GetTasks(_context))
 //            {
-//                context.Tasks.AddOrUpdate(t => t.Title, task);
+//                _context.Tasks.AddOrUpdate(t => t.Title, task);
 //            }
 
-//            context.SaveChanges();
+//            _context.SaveChanges();
 //        }
 //    }
 //}

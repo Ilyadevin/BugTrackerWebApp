@@ -1,6 +1,4 @@
 ﻿using BugTrackerWebApp.Data.Enum;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BugTrackerWebApp.Models
 {
@@ -14,5 +12,6 @@ namespace BugTrackerWebApp.Models
         public DateTime? CompletedDate { get; set; }
         public TaskStatus? Status { get; set; }
         public TaskPriority? Priority { get; set; }
+        public string? GitHubAction { get; set; }
     }
 }

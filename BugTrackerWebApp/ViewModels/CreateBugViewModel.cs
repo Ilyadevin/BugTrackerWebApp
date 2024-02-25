@@ -1,8 +1,10 @@
 ﻿using BugTrackerWebApp.Data.Enum;
+using BugTrackerWebApp.Interfaces;
+using BugTrackerWebApp.Models;
 
-namespace BugTrackerWebApp.Models
+namespace BugTrackerWebApp.ViewModels
 {
-    public class Bug
+    public class CreateBugViewModel
     {
         public int Id { get; set; }
         public string? Title { get; set; }
@@ -13,7 +15,7 @@ namespace BugTrackerWebApp.Models
         public DateTime? ResolvedDate { get; set; }
         public BugStatus? Status { get; set; }
         public BugPriority? Criticality { get; set; }
-        public string? ScreenShotOfError { get; set; }
-        public AppUser? AppUser { get; set;}
+        public IFormFile? ScreenShotOfError { get; set; }
+        public AppUser? AppUser { get; set; }
     }
 }
