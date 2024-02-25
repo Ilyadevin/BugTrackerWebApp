@@ -1,6 +1,7 @@
 ﻿using BugTrackerWebApp.Data;
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
+using BugTrackerWebApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTrackerWebApp.Controllers
@@ -22,6 +23,20 @@ namespace BugTrackerWebApp.Controllers
         {
             Project project = await _projectRepository.GetByIdAsync(id);
             return View(project);
+        }
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Project project)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(project);
+            }
+            _projectRepository.Add(project);
+            return RedirectToAction("Index");
         }
     }
 }
