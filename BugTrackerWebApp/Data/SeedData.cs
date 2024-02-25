@@ -23,14 +23,16 @@ public static class SeedData
                     Name = "John Doe",
                     Email = "john.doe@example.com",
                     Password = "password123",
-                    Role = "Developer"
+                    Role = "Developer",
+                    Avatar = "/img/developerImage.jpg"
                 },
                 new AppUser
                 {
                     Name = "Jane Smith",
                     Email = "jane.smith@example.com",
                     Password = "password456",
-                    Role = "Manager"
+                    Role = "Manager",
+                    Avatar = "/img/adminImage"
                 }
             );
 
@@ -83,7 +85,8 @@ public static class SeedData
                     AssignedToUserId = 1,
                     CreatedDate = DateTime.Now,
                     Status = BugStatus.Open,
-                    Criticality = BugPriority.High
+                    Criticality = BugPriority.High,
+                    ScreenShotOfError = "/img/errorMessageSample2.png"
                 },
                 new Bug
                 {
@@ -93,7 +96,9 @@ public static class SeedData
                     AssignedToUserId = 2,
                     CreatedDate = DateTime.Now,
                     Status = BugStatus.Closed,
-                    Criticality = BugPriority.Low
+                    Criticality = BugPriority.Low,
+                    ScreenShotOfError = "/img/errorMessageSample4.png"
+
                 }
             );
 
