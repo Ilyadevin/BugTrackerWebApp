@@ -2,6 +2,7 @@
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.Repository;
+using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTrackerWebApp.Controllers
@@ -29,14 +30,28 @@ namespace BugTrackerWebApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Project project)
+        public async Task<IActionResult> Create(CreateProjectViewModel projectVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(project);
+                var project = new Project
+                {
+                    Name = projectVM.Name,
+                    Description = projectVM.Description,
+                    //ManagerUserId = projectVM.ManagerUserId,
+                    //StartDate = DateTime.Now,
+                    //EndDate = DateTime.Now,
+                    Status = projectVM.Status,
+                    ProjectLink = projectVM.ProjectLink
+                };
+                _projectRepository.Add(project);
+                return RedirectToAction("Index");
             }
-            _projectRepository.Add(project);
-            return RedirectToAction("Index");
+            else
+            {
+                ModelState.AddModelError("", "There is an error in filling fields of the form");
+            }
+            return View(projectVM);
         }
     }
 }

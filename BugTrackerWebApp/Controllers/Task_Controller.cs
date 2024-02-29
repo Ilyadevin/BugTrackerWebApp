@@ -2,6 +2,7 @@
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.Repository;
+using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTrackerWebApp.Controllers
@@ -30,14 +31,26 @@ namespace BugTrackerWebApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Task_ task)
+        public async Task<IActionResult> Create(CreateTaskViewModel taskVM)
         {
-            if (!ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                return View(task);
+                var task = new Task_
+                {
+                    Title = taskVM.Title,
+                    Description = taskVM.Description,
+                    Status = taskVM.Status,
+                    Priority = taskVM.Priority,
+                };
+                _taskRepository.Add(task);
+                return RedirectToAction("Index");
             }
-            _taskRepository.Add(task);
-            return RedirectToAction("Index");
+            else
+            {
+                ModelState.AddModelError("", "Error in filling fileds");
+            }
+            return View(taskVM);
         }
     }
 }
