@@ -42,6 +42,10 @@ namespace BugTrackerWebApp.Controllers
                     Description = taskVM.Description,
                     Status = taskVM.Status,
                     Priority = taskVM.Priority,
+                    //AssignedToUserId = taskVM.AssignedToUserId,
+                    //CreatedDate = taskVM.CreatedDate,
+                    //CompletedDate = taskVM.CompletedDate,
+                    //GitHubAction = taskVM.GitHubAction
                 };
                 _taskRepository.Add(task);
                 return RedirectToAction("Index");
