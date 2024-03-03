@@ -10,7 +10,7 @@ namespace BugTrackerWebApp.Interfaces
         Task<Bug> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Bug>> GetBugByPriority(BugPriority bugPriority);
         bool Add(Bug bug);
-        bool Update(Bug bug);  
+        bool Update(Bug bug);
         bool Delete(Bug bug);
         bool Save();
     }

@@ -14,6 +14,6 @@ namespace BugTrackerWebApp.Models
         public BugStatus? Status { get; set; }
         public BugPriority? Criticality { get; set; }
         public string? ScreenShotOfError { get; set; }
-        public AppUser? AppUser { get; set;}
+        public AppUser? AppUser { get; set; }
     }
 }

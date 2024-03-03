@@ -3,7 +3,6 @@ using BugTrackerWebApp.Data.Enum;
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace BugTrackerWebApp.Repository
 {
@@ -50,7 +49,7 @@ namespace BugTrackerWebApp.Repository
         public bool Save()
         {
             var saved = _context.SaveChanges();
-            return saved>0?true: false;
+            return saved > 0 ? true : false;
         }
 
         public bool Update(Bug bug)

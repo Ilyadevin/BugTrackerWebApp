@@ -1,5 +1,4 @@
 ﻿using BugTrackerWebApp.Data.Enum;
-using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 
 namespace BugTrackerWebApp.ViewModels
