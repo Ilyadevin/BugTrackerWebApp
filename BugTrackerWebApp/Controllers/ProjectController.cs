@@ -51,6 +51,25 @@ namespace BugTrackerWebApp.Controllers
             }
             return View(projectVM);
         }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var project = await _projectRepository.GetByIdAsync(id);
+            if (project == null) return View("Error");
+            var projectVM = new EditProjectViewModel
+            {
+                Name = project.Name,
+                Description = project.Description,
+                //URL = project.ScreenShotOfError
+                //ProjectId = projectVM.ProjectId,
+                //AssignedToUserId = projectVM.AssignedToUserId,
+                //CreatedDate = projectVM.CreatedDate,
+                //ResolvedDate = projectVM.ResolvedDate,
+                //Status = projectVM.Status,
+                //Criticality = projectVM.Criticality,
+                //AppUser = projectVM.AppUser
+            };
+            return View(projectVM);
+        }
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditProjectViewModel projectVM)
         {
