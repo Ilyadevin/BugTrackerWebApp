@@ -21,6 +21,11 @@ namespace BugTrackerWebApp.Services
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
         {
             var uploadResult = new ImageUploadResult();
+            if (file == null)
+            {
+                return uploadResult;
+            }
+            // TODO: Should be able to add bug without image?
             if (file.Length > 0)
             {
                 using var stream = file.OpenReadStream();
