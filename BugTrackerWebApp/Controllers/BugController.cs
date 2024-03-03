@@ -1,5 +1,4 @@
-﻿using BugTrackerWebApp.Data;
-using BugTrackerWebApp.Interfaces;
+﻿using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -84,7 +83,7 @@ namespace BugTrackerWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditBugViewModel bugVM)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Failed to edit bug");
                 return View("Edit", bugVM);
@@ -96,7 +95,7 @@ namespace BugTrackerWebApp.Controllers
                 {
                     await _photoService.DeletePhotoAsync(userBug.ScreenShotOfError);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     ModelState.AddModelError("", "Could not delete photo");
                     return View(bugVM);

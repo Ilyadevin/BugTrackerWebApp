@@ -1,7 +1,5 @@
-﻿using BugTrackerWebApp.Data;
-using BugTrackerWebApp.Interfaces;
+﻿using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
-using BugTrackerWebApp.Repository;
 using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +53,39 @@ namespace BugTrackerWebApp.Controllers
                 ModelState.AddModelError("", "Error in filling fileds");
             }
             return View(taskVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditTaskViewModel taskVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to edit task");
+                return View("Edit", taskVM);
+            }
+            var userTask = await _taskRepository.GetByIdAsyncNoTracking(id);
+            if (userTask != null)
+            {
+                var task = new Task_
+                {
+                    Id = id,
+                    Title = taskVM.Title,
+                    Description = taskVM.Description,
+                    //URL = taskVM.ScreenShotOfError
+                    //ProjectId = taskVM.ProjectId,
+                    //AssignedToUserId = taskVM.AssignedToUserId,
+                    //CreatedDate = taskVM.CreatedDate,
+                    //ResolvedDate = taskVM.ResolvedDate,
+                    //Status = taskVM.Status,
+                    //Criticality = taskVM.Criticality,
+                    //AppUser = taskVM.AppUser
+                };
+                _taskRepository.Update(task);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(taskVM);
+            }
         }
     }
 }
