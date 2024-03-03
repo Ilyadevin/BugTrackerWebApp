@@ -42,6 +42,11 @@ namespace BugTrackerWebApp.Repository
             return await _context.Bugs.FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public async Task<Bug> GetByIdAsyncNoTracking(int id)
+        {
+            return await _context.Bugs.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

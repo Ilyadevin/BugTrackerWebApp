@@ -60,5 +60,70 @@ namespace BugTrackerWebApp.Controllers
             }
             return View(bugVM);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var bug = await _bugRepository.GetByIdAsync(id);
+            if (bug == null) return View("Error");
+            var bugVM = new EditBugViewModel
+            {
+                Title = bug.Title,
+                Description = bug.Description,
+                URL = bug.ScreenShotOfError
+                //ProjectId = bugVM.ProjectId,
+                //AssignedToUserId = bugVM.AssignedToUserId,
+                //CreatedDate = bugVM.CreatedDate,
+                //ResolvedDate = bugVM.ResolvedDate,
+                //Status = bugVM.Status,
+                //Criticality = bugVM.Criticality,
+                //AppUser = bugVM.AppUser
+            };
+            return View(bugVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditBugViewModel bugVM)
+        {
+            if(!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to edit bug");
+                return View("Edit", bugVM);
+            }
+            var userBug = await _bugRepository.GetByIdAsyncNoTracking(id);
+            if (userBug != null)
+            {
+                try
+                {
+                    await _photoService.DeletePhotoAsync(userBug.ScreenShotOfError);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Could not delete photo");
+                    return View(bugVM);
+                }
+                var screenShotResult = await _photoService.AddPhotoAsync(bugVM.ScreenShotOfError);
+                var bug = new Bug
+                {
+                    Id = id,
+                    Title = bugVM.Title,
+                    Description = bugVM.Description,
+                    ScreenShotOfError = screenShotResult.Url.ToString(),
+                    //URL = bugVM.ScreenShotOfError
+                    //ProjectId = bugVM.ProjectId,
+                    //AssignedToUserId = bugVM.AssignedToUserId,
+                    //CreatedDate = bugVM.CreatedDate,
+                    //ResolvedDate = bugVM.ResolvedDate,
+                    //Status = bugVM.Status,
+                    //Criticality = bugVM.Criticality,
+                    //AppUser = bugVM.AppUser
+                };
+                _bugRepository.Update(bug);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(bugVM);
+            }
+        }
     }
 }
