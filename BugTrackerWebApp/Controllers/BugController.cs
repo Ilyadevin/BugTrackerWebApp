@@ -43,7 +43,13 @@ namespace BugTrackerWebApp.Controllers
                     Title = bugVM.Title,
                     Description = bugVM.Description,
                     ScreenShotOfError = result.Url.ToString(),
-
+                    //ProjectId = bugVM.ProjectId,
+                    //AssignedToUserId = bugVM.AssignedToUserId,
+                    //CreatedDate = bugVM.CreatedDate,
+                    //ResolvedDate = bugVM.ResolvedDate,
+                    //Status = bugVM.Status,
+                    //Criticality = bugVM.Criticality,
+                    //AppUser = bugVM.AppUser
                 };
                 _bugRepository.Add(bug);
                 return RedirectToAction("Index");
