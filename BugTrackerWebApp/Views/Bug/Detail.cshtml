@@ -24,7 +24,14 @@
             <p>@Model.Description</p>
             <h3 class="my-3">Bug Details</h3>
             <ul>
-                <li>Bug was created at: @Model.CreatedDate.Value.DayOfYear</li>
+                @if(Model.CreatedDate == null)
+                {
+                    <li>Bug was created at: @DateTime.Now.Date.ToString()</li>
+                }
+                else
+                {
+                    <li>Bug was created at: @Model.CreatedDate.Value.ToString()</li>
+                }
                 @if(Model.ResolvedDate is null)
                 {
                     <li>Bug was not resolved yet</li>

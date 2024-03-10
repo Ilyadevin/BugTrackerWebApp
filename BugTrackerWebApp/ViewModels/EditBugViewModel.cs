@@ -3,9 +3,10 @@ using BugTrackerWebApp.Models;
 
 namespace BugTrackerWebApp.ViewModels
 {
-    public class CreateBugViewModel
+    public class EditBugViewModel
     {
         public int Id { get; set; }
+        public string? URL { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
         public int? ProjectId { get; set; }

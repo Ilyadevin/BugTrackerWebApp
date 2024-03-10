@@ -35,16 +35,21 @@ namespace BugTrackerWebApp.Repository
         {
             return await _context.Tasks.FirstOrDefaultAsync(i => i.Id == id);
         }
+        public async Task<Task_> GetByIdAsyncNoTracking(int id)
+        {
+            return await _context.Tasks.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+        }
+
 
         public async Task<IEnumerable<Task_>> GetTaskByCompletition(TaskStatuses taskStatuses)
         {
-            return await _context.Tasks.Where(i => i.Status.Equals( taskStatuses)).ToListAsync();
+            return await _context.Tasks.Where(i => i.Status.Equals(taskStatuses)).ToListAsync();
         }
 
         public bool Save()
         {
             var saved = _context.SaveChanges();
-            return saved>0?true: false;
+            return saved > 0 ? true : false;
         }
 
         public bool Update(Task_ task)

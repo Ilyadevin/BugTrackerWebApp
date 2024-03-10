@@ -1,9 +1,10 @@
 ﻿using BugTrackerWebApp.Data.Enum;
 
-namespace BugTrackerWebApp.Models
+namespace BugTrackerWebApp.ViewModels
 {
-    public class Task_
+    public class EditTaskViewModel
     {
+        public string? URL { get; set; }
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
@@ -13,7 +14,5 @@ namespace BugTrackerWebApp.Models
         public TaskStatus? Status { get; set; }
         public TaskPriority? Priority { get; set; }
         public string? GitHubAction { get; set; }
-        public string? AppUserId { get; set; }
-
     }
 }

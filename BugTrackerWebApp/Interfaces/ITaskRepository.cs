@@ -7,6 +7,7 @@ namespace BugTrackerWebApp.Interfaces
     {
         Task<IEnumerable<Task_>> GetAll();
         Task<Task_> GetByIdAsync(int id);
+        Task<Task_> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Task_>> GetTaskByCompletition(TaskStatuses taskStatuses);
         bool Add(Task_ task);
         bool Update(Task_ task);

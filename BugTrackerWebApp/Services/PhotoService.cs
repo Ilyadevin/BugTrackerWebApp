@@ -9,18 +9,23 @@ namespace BugTrackerWebApp.Services
     public class PhotoService : IPhotoService
     {
         private readonly Cloudinary _cloudinary;
-        public PhotoService(IOptions<CloudinarySettings> config) 
+        public PhotoService(IOptions<CloudinarySettings> config)
         {
             var ac = new Account(
                 config.Value.CloudName,
                 config.Value.ApiKey,
                 config.Value.ApiSecret
                 );
-            _cloudinary = new Cloudinary( ac );
+            _cloudinary = new Cloudinary(ac);
         }
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
         {
-           var uploadResult = new ImageUploadResult();
+            var uploadResult = new ImageUploadResult();
+            if (file == null)
+            {
+                return uploadResult;
+            }
+            // TODO: Should be able to add bug without image?
             if (file.Length > 0)
             {
                 using var stream = file.OpenReadStream();

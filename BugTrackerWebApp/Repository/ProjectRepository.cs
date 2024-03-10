@@ -2,7 +2,6 @@
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace BugTrackerWebApp.Repository
 {
@@ -36,7 +35,10 @@ namespace BugTrackerWebApp.Repository
             return await _context.Projects.FirstOrDefaultAsync(i => i.Id == id);
 
         }
-
+        public async Task<Project> GetByIdAsyncNoTracking(int id)
+        {
+            return await _context.Projects.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+        }
         public bool Save()
         {
             var saved = _context.SaveChanges();
