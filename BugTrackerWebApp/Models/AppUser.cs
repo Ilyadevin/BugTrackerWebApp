@@ -1,7 +1,7 @@
 ﻿
 namespace BugTrackerWebApp.Models
 {
-    public class AppUser: Microsoft.AspNetCore.Identity.IdentityUser
+    public class AppUser : Microsoft.AspNetCore.Identity.IdentityUser
     {
         //public string? Name { get; set; }
         //public string? Password { get; set; }

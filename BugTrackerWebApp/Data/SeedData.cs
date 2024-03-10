@@ -1,7 +1,7 @@
 ﻿using BugTrackerWebApp.Data.Enum;
 using BugTrackerWebApp.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 namespace BugTrackerWebApp.Data;
 
 
