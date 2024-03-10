@@ -1,4 +1,5 @@
 ﻿using BugTrackerWebApp.Data;
+using BugTrackerWebApp.Data.Enum;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -46,6 +47,39 @@ namespace BugTrackerWebApp.Controllers
             }
             TempData["Error"] = "Wrong credentials, try again!";
             return View(loginViewModel);
+        }
+        public IActionResult Register()
+        {
+            var response = new RegisterViewModel();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        {
+            if (!ModelState.IsValid) { return View(registerViewModel); }
+            var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
+            if (user != null)
+            {
+                TempData["Error"] = "This email is already in use";
+                return View(registerViewModel);
+            }
+            var newUser = new AppUser()
+            {
+                Email = registerViewModel.EmailAddress,
+                UserName = registerViewModel.EmailAddress,
+            };
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerViewModel.Password);
+            if (newUserResponse.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+            }
+            return RedirectToAction("Index", "Bug");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Loguut(RegisterViewModel registerViewModel)
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Bug");
         }
     }
 }
