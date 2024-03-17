@@ -8,9 +8,12 @@ namespace BugTrackerWebApp.Controllers
     public class ProjectController : Controller
     {
         private readonly IProjectRepository _projectRepository;
-        public ProjectController(IProjectRepository projectRepository)
+        private readonly IHttpContextAccessor _contextAccessor;
+
+        public ProjectController(IProjectRepository projectRepository, IHttpContextAccessor contextAccessor)
         {
             _projectRepository = projectRepository;
+            _contextAccessor = contextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -25,7 +28,12 @@ namespace BugTrackerWebApp.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            return View();
+            var curUserId = _contextAccessor.HttpContext?.User.GetUserId();
+            var createProjectViewModel = new CreateProjectViewModel
+            {
+                AppUserId = curUserId
+            };
+            return View(createProjectViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateProjectViewModel projectVM)
@@ -34,6 +42,7 @@ namespace BugTrackerWebApp.Controllers
             {
                 var project = new Project
                 {
+                    AppUserId = projectVM.AppUserId,
                     Name = projectVM.Name,
                     Description = projectVM.Description,
                     //ManagerUserId = projectVM.ManagerUserId,
@@ -57,6 +66,7 @@ namespace BugTrackerWebApp.Controllers
             if (project == null) return View("Error");
             var projectVM = new EditProjectViewModel
             {
+                AppUserId = project.AppUserId,
                 Name = project.Name,
                 Description = project.Description,
                 //URL = project.ScreenShotOfError

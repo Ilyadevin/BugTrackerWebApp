@@ -9,11 +9,13 @@ namespace BugTrackerWebApp.Controllers
     {
         private readonly IBugRepository _bugRepository;
         private readonly IPhotoService _photoService;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public BugController(IBugRepository bugRepository, IPhotoService photoService)
+        public BugController(IBugRepository bugRepository, IPhotoService photoService, IHttpContextAccessor contextAccessor)
         {
             _bugRepository = bugRepository;
             _photoService = photoService;
+            _contextAccessor = contextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -28,7 +30,12 @@ namespace BugTrackerWebApp.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            return View();
+            var curUserId = _contextAccessor.HttpContext.User.GetUserId();
+            var createViewModel = new CreateBugViewModel
+            {
+                AppUserId = curUserId
+            };
+            return View(createViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateBugViewModel bugVM)
@@ -39,6 +46,7 @@ namespace BugTrackerWebApp.Controllers
 
                 var bug = new Bug
                 {
+                    AppUserId = bugVM.AppUserId,
                     Title = bugVM.Title,
                     Description = bugVM.Description,
                     ScreenShotOfError = result.Url.ToString(),
@@ -66,6 +74,7 @@ namespace BugTrackerWebApp.Controllers
             if (bug == null) return View("Error");
             var bugVM = new EditBugViewModel
             {
+                AppUserId = bug.AppUserId,
                 Title = bug.Title,
                 Description = bug.Description,
                 URL = bug.ScreenShotOfError
