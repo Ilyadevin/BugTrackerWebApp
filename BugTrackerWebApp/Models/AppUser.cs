@@ -9,6 +9,7 @@ namespace BugTrackerWebApp.Models
         //public string? Avatar { get; set; }
         public ICollection<Bug> Bugs { get; set; }
         public ICollection<Task_> Tasks { get; set; }
+        public string? ProfileImageUrl { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BugTrackerWebApp.Data.Enum;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BugTrackerWebApp.Models
 {
@@ -13,7 +14,9 @@ namespace BugTrackerWebApp.Models
         public TaskStatus? Status { get; set; }
         public TaskPriority? Priority { get; set; }
         public string? GitHubAction { get; set; }
+        [ForeignKey("AppUser")]
         public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
 
     }
 }
