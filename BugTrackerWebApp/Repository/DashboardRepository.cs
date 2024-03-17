@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BugTrackerWebApp.Data;
+﻿using BugTrackerWebApp.Data;
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BugTrackerWebApp.Repository
 {
