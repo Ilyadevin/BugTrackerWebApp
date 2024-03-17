@@ -1,4 +1,5 @@
 ﻿using BugTrackerWebApp.Data.Enum;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BugTrackerWebApp.Models
 {
@@ -12,7 +13,10 @@ namespace BugTrackerWebApp.Models
         public DateTime? EndDate { get; set; }
         public ProjectStatus? Status { get; set; }
         public string? ProjectLink { get; set; }
+        [ForeignKey("AppUser")]
         public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
+
 
     }
 }
