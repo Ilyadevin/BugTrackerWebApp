@@ -8,10 +8,12 @@ namespace BugTrackerWebApp.Controllers
     public class Task_Controller : Controller
     {
         private readonly ITaskRepository _taskRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public Task_Controller(ITaskRepository taskRepository)
+        public Task_Controller(ITaskRepository taskRepository, IHttpContextAccessor contextAccessor)
         {
             _taskRepository = taskRepository;
+            _contextAccessor = contextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -26,7 +28,12 @@ namespace BugTrackerWebApp.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            return View();
+            var curUserId = _contextAccessor.HttpContext?.User.GetUserId();
+            var createTaskViewModel = new CreateTaskViewModel
+            {
+                AppUserId = curUserId
+            };
+            return View(createTaskViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateTaskViewModel taskVM)
@@ -36,6 +43,7 @@ namespace BugTrackerWebApp.Controllers
             {
                 var task = new Task_
                 {
+                    AppUserId = taskVM.AppUserId,
                     Title = taskVM.Title,
                     Description = taskVM.Description,
                     Status = taskVM.Status,
@@ -61,6 +69,7 @@ namespace BugTrackerWebApp.Controllers
             if (task == null) return View("Error");
             var taskVM = new EditTaskViewModel
             {
+                AppUserId = task.AppUserId,
                 Title = task.Title,
                 Description = task.Description,
                 //URL = task.ScreenShotOfError

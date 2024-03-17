@@ -13,5 +13,6 @@ namespace BugTrackerWebApp.ViewModels
         public DateTime? EndDate { get; set; }
         public ProjectStatus? Status { get; set; }
         public string? ProjectLink { get; set; }
+        public string AppUserId { get; set; }
     }
 }

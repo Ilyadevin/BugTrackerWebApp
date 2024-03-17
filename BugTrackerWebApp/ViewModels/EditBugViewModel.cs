@@ -16,6 +16,8 @@ namespace BugTrackerWebApp.ViewModels
         public BugStatus? Status { get; set; }
         public BugPriority? Criticality { get; set; }
         public IFormFile? ScreenShotOfError { get; set; }
+        public string AppUserId { get; set; }
+
         public AppUser? AppUser { get; set; }
     }
 }
