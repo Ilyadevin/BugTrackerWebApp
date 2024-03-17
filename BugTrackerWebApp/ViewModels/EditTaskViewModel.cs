@@ -14,5 +14,6 @@ namespace BugTrackerWebApp.ViewModels
         public TaskStatus? Status { get; set; }
         public TaskPriority? Priority { get; set; }
         public string? GitHubAction { get; set; }
+        public string AppUserId { get; set; }
     }
 }
