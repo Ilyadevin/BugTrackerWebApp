@@ -28,7 +28,7 @@ namespace BugTrackerWebApp.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            var curUserId = _contextAccessor.HttpContext?.User.GetUserId();
+            var curUserId = _contextAccessor.HttpContext.User.GetUserId();
             var createTaskViewModel = new CreateTaskViewModel
             {
                 AppUserId = curUserId

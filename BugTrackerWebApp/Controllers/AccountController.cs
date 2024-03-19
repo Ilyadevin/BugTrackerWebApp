@@ -73,13 +73,13 @@ namespace BugTrackerWebApp.Controllers
             {
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
             }
-            return RedirectToAction("Index", "Bug");
+            return RedirectToAction("Bug", "Inde");
         }
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Bug");
+            return RedirectToAction("Bug", "Index");
         }
 
     }
