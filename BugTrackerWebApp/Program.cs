@@ -4,7 +4,6 @@ using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.Repository;
 using BugTrackerWebApp.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,15 +26,20 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddDefaultTokenProviders();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/Login";
-        options.LogoutPath = "/Account/Logout";
-    });
+
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//    options.LoginPath = "/Account/Login";
+//    options.LogoutPath = "/Account/Logout";
+//    options.AccessDeniedPath = "/Account/AccessDenied";
+//});
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+if (args.Length == 1 && args[0].ToLower() == "seeddata")
+{
+    await SeedData.SeedUsersAndRolesAsync(app);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
