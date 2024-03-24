@@ -69,7 +69,9 @@ namespace BugTrackerWebApp.Controllers
 
             var editMV = new EditProfileViewModel()
             {
+                //id = user.Id,
                 ProfileImageUrl = user.ProfileImageUrl,
+                UserName = user.UserName
             };
             return View(editMV);
         }

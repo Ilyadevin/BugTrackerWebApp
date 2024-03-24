@@ -62,6 +62,33 @@
                     </div>
                     <!--end of row-->
                     <hr />
+                    <div class="row mb-4">
+                        <div class="col">
+                            <h5>Profile Information</h5>
+                        </div>
+                        <!--end of col-->
+                    </div>
+                    <!--end of row-->
+                    <div class="row">
+                        <!--end of col-->
+                        <div class="col-12 col-md-8 order-md-1">
+                            <form asp-action="EditProfile" method="post" class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label asp-for="UserName">UserName:</label>
+                                        <input asp-for="UserName" type="text" class="form-control form-control-lg" />
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>
+                    <!--end of row-->
+                    <hr />
                     <!--end of row-->
                 </div>
                 <!--end of container-->
