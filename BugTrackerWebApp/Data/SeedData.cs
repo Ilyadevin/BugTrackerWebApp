@@ -12,31 +12,6 @@ public static class SeedData
         using (var context = new ApplicationDbContext(
             serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
         {
-            //// Look for any users.
-            //if (context.AppUsers.Any())
-            //{
-            //    return; // DB has been seeded
-            //}
-
-            //context.AppUsers.AddRange(
-            //    new AppUser
-            //    {
-            //        Name = "John Doe",
-            //        Email = "john.doe@example.com",
-            //        Password = "password123",
-            //        Role = "Developer",
-            //        Avatar = "/img/developerImage.jpg"
-            //    },
-            //    new AppUser
-            //    {
-            //        Name = "Jane Smith",
-            //        Email = "jane.smith@example.com",
-            //        Password = "password456",
-            //        Role = "Manager",
-            //        Avatar = "/img/adminImage"
-            //    }
-            //);
-
             context.Projects.AddRange(
                 new Project
                 {
@@ -119,22 +94,23 @@ public static class SeedData
 
         //Users
         var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
-        string adminUserEmail = "johndoe@example.com";
+        string adminUserEmail = "ilyaerlingasdeveloper@example.com";
 
         var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
         if (adminUser == null)
         {
             var newAdminUser = new AppUser()
             {
-                UserName = "JohnDoe",
+                UserName = "IlyaErlingas",
                 Email = adminUserEmail,
                 EmailConfirmed = true,
+                ProfileImageUrl = "/img/developerImage.jpg"
             };
             await userManager.CreateAsync(newAdminUser, "Coding@1234?");
             await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
         }
 
-        string appUserEmail = "janesmith@example.com";
+        string appUserEmail = "user@example.com";
 
         var appUser = await userManager.FindByEmailAsync(appUserEmail);
         if (appUser == null)
@@ -144,6 +120,7 @@ public static class SeedData
                 UserName = "JaneSmith",
                 Email = appUserEmail,
                 EmailConfirmed = true,
+                ProfileImageUrl = "/img/userImage.jpg"
             };
             await userManager.CreateAsync(newAppUser, "Coding@1234?");
             await userManager.AddToRoleAsync(newAppUser, UserRoles.User);

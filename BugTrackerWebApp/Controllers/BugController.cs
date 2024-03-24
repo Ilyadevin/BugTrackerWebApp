@@ -31,11 +31,11 @@ namespace BugTrackerWebApp.Controllers
         public async Task<IActionResult> Create()
         {
             var curUserId = _contextAccessor.HttpContext.User.GetUserId();
-            var createViewModel = new CreateBugViewModel
+            var createBugViewModel = new CreateBugViewModel
             {
                 AppUserId = curUserId
             };
-            return View(createViewModel);
+            return View(createBugViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateBugViewModel bugVM)

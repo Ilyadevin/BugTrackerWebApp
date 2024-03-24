@@ -75,11 +75,10 @@ namespace BugTrackerWebApp.Controllers
             }
             return RedirectToAction("Index", "Bug");
         }
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Bug");
+            return RedirectToAction("Index", "Home");
         }
 
     }
