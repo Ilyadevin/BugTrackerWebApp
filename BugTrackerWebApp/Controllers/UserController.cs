@@ -120,5 +120,31 @@ namespace BugTrackerWebApp.Controllers
 
             return RedirectToAction("Detail", "User", new { user.Id });
         }
+        //[HttpGet]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var clubDetails = await _userRepository.GetByIdAsync(id);
+        //    if (clubDetails == null) return View("Error");
+        //    return View(clubDetails);
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //public async Task<IActionResult> DeleteBug(int id)
+        //{
+        //    var clubDetails = await _userRepository.GetByIdAsync(id);
+
+        //    if (clubDetails == null)
+        //    {
+        //        return View("Error");
+        //    }
+
+        //    if (!string.IsNullOrEmpty(clubDetails.Image))
+        //    {
+        //        _ = _photoService.DeletePhotoAsync(clubDetails.Image);
+        //    }
+
+        //    _userRepository.Delete(clubDetails);
+        //    return RedirectToAction("Index");
+        //}
     }
 }

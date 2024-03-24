@@ -113,5 +113,12 @@ namespace BugTrackerWebApp.Controllers
                 return View(bugVM);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var bugDetails = await _bugRepository.GetByIdAsync(id);
+            if (bugDetails == null) return View("Error");
+            return View(bugDetails);
+        }
     }
 }
