@@ -45,9 +45,6 @@ namespace BugTrackerWebApp.Controllers
                     AppUserId = projectVM.AppUserId,
                     Name = projectVM.Name,
                     Description = projectVM.Description,
-                    //ManagerUserId = projectVM.ManagerUserId,
-                    //StartDate = DateTime.Now,
-                    //EndDate = DateTime.Now,
                     Status = projectVM.Status,
                     ProjectLink = projectVM.ProjectLink
                 };
@@ -69,14 +66,6 @@ namespace BugTrackerWebApp.Controllers
                 AppUserId = project.AppUserId,
                 Name = project.Name,
                 Description = project.Description,
-                //URL = project.ScreenShotOfError
-                //ProjectId = projectVM.ProjectId,
-                //AssignedToUserId = projectVM.AssignedToUserId,
-                //CreatedDate = projectVM.CreatedDate,
-                //ResolvedDate = projectVM.ResolvedDate,
-                //Status = projectVM.Status,
-                //Criticality = projectVM.Criticality,
-                //AppUser = projectVM.AppUser
             };
             return View(projectVM);
         }
@@ -93,17 +82,10 @@ namespace BugTrackerWebApp.Controllers
             {
                 var project = new Project
                 {
+                    AppUserId = userTask.AppUserId,
                     Id = id,
                     Name = projectVM.Name,
                     Description = projectVM.Description,
-                    //URL = projectVM.ScreenShotOfError
-                    //ProjectId = projectVM.ProjectId,
-                    //AssignedToUserId = projectVM.AssignedToUserId,
-                    //CreatedDate = projectVM.CreatedDate,
-                    //ResolvedDate = projectVM.ResolvedDate,
-                    //Status = projectVM.Status,
-                    //Criticality = projectVM.Criticality,
-                    //AppUser = projectVM.AppUser
                 };
                 _projectRepository.Update(project);
                 return RedirectToAction("Index");

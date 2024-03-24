@@ -28,6 +28,7 @@ namespace BugTrackerWebApp.Controllers
             Bug bug = await _bugRepository.GetByIdAsync(id);
             return View(bug);
         }
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             var curUserId = _contextAccessor.HttpContext.User.GetUserId();
@@ -50,13 +51,6 @@ namespace BugTrackerWebApp.Controllers
                     Title = bugVM.Title,
                     Description = bugVM.Description,
                     ScreenShotOfError = result.Url.ToString(),
-                    //ProjectId = bugVM.ProjectId,
-                    //AssignedToUserId = bugVM.AssignedToUserId,
-                    //CreatedDate = bugVM.CreatedDate,
-                    //ResolvedDate = bugVM.ResolvedDate,
-                    //Status = bugVM.Status,
-                    //Criticality = bugVM.Criticality,
-                    //AppUser = bugVM.AppUser
                 };
                 _bugRepository.Add(bug);
                 return RedirectToAction("Index");
@@ -67,7 +61,7 @@ namespace BugTrackerWebApp.Controllers
             }
             return View(bugVM);
         }
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var bug = await _bugRepository.GetByIdAsync(id);
@@ -78,13 +72,6 @@ namespace BugTrackerWebApp.Controllers
                 Title = bug.Title,
                 Description = bug.Description,
                 URL = bug.ScreenShotOfError
-                //ProjectId = bugVM.ProjectId,
-                //AssignedToUserId = bugVM.AssignedToUserId,
-                //CreatedDate = bugVM.CreatedDate,
-                //ResolvedDate = bugVM.ResolvedDate,
-                //Status = bugVM.Status,
-                //Criticality = bugVM.Criticality,
-                //AppUser = bugVM.AppUser
             };
             return View(bugVM);
         }
@@ -112,18 +99,11 @@ namespace BugTrackerWebApp.Controllers
                 var screenShotResult = await _photoService.AddPhotoAsync(bugVM.ScreenShotOfError);
                 var bug = new Bug
                 {
+                    AppUserId = userBug.AppUserId,
                     Id = id,
                     Title = bugVM.Title,
                     Description = bugVM.Description,
                     ScreenShotOfError = screenShotResult.Url.ToString(),
-                    //URL = bugVM.ScreenShotOfError
-                    //ProjectId = bugVM.ProjectId,
-                    //AssignedToUserId = bugVM.AssignedToUserId,
-                    //CreatedDate = bugVM.CreatedDate,
-                    //ResolvedDate = bugVM.ResolvedDate,
-                    //Status = bugVM.Status,
-                    //Criticality = bugVM.Criticality,
-                    //AppUser = bugVM.AppUser
                 };
                 _bugRepository.Update(bug);
                 return RedirectToAction("Index");
