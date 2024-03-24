@@ -13,77 +13,115 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BugTrackerWebApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/entypo.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/socicon.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BugTrackerWebApp.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BugTrackerWebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
+    <body>
+        <div class="navbar-container">
+            <div class="bg-light navbar-light" data-sticky="top">
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index" id="logo-text">BugTracker</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="icon-menu h4"></i>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                    </li>
+                                }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Bug" asp-action="Index">Bugs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Task_" asp-action="Index">Tasks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dash</a>
+                                <a class="nav-link" asp-area="" asp-controller="Bug" asp-action="Index">Bugs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Log Out</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign up</a>
-                            </li>
-                            <li>
-                                <span class="nav-link text-dark">&nbsp;or&nbsp;</span>
+                                <a class="nav-link" asp-area="" asp-controller="Task_" asp-action="Index">Tasks</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
+                                <a class="nav-link" asp-area="" asp-controller="Project" asp-action="Index">Projects</a>
                             </li>
-                        }
-                    </ul>
+                            </ul>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle p-lg-0" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @if (!string.IsNullOrEmpty(currentUser.ProfileImageUrl))
+                                            {
+                                                <img alt="Image" src="@currentUser.ProfileImageUrl" class="avatar avatar-xs">
+                                            }
+                                            else
+                                            {
+                                                <img alt="Image" src="/img/avatar-male-4.jpg" class="avatar avatar-xs">
+                                            }
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                            <a class="dropdown-item" asp-controller="User" asp-action="Detail" asp-route-id="@currentUser.Id">
+                                                <span class="h6 mb-0">View Profile</span>
+                                            </a>
+
+                                            <a class="dropdown-item" asp-controller="User" asp-action="EditProfile">
+                                                <span class="h6 mb-0">Edit Profile</span>
+                                            </a>
+
+                                        <a class="dropdown-item" asp-area="" asp-controller="Bug" asp-action="Create">
+                                                <span class="h6 mb-0">Create Bug</span>
+                                            </a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Task_" asp-action="Create">
+                                                <span class="h6 mb-0">Create Task</span>
+                                            </a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Project" asp-action="Create">
+                                            <span class="h6 mb-0">Create Project</span>
+                                        </a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                                                <span class="h6 mb-0">Dashboard</span>
+                                            </a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">
+                                                <span su class="h6 mb-0">Logout</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a asp-area="" asp-controller="Account" asp-action="Register">Sign up</a>
+                                        <span>&nbsp;or&nbsp;</span>
+                                        <a asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
+                                    </li>
+                                </ul>
+                            }
+
+                        </div>
+                        <!--end nav collapse-->
+                    </nav>
                 </div>
+                <!--end of container-->
             </div>
-        </nav>
-    </header>
+        </div>
+   
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="bg-gray text-light footer-long" >
         <div class="container">
+            <div class="row">
             &copy; 2024 - BugTrackerWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
         </div>
     </footer>
     <script src="~/js/jquery.min.js"></script>
