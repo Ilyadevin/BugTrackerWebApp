@@ -10,11 +10,13 @@ namespace BugTrackerWebApp.Controllers
     {
         private readonly IDashboardRepository _dashboardRespository;
         private readonly IPhotoService _photoService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DashboardController(IDashboardRepository dashboardRespository, IPhotoService photoService)
+        public DashboardController(IDashboardRepository dashboardRespository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
         {
             _dashboardRespository = dashboardRespository;
             _photoService = photoService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()

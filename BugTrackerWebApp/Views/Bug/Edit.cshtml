@@ -8,8 +8,7 @@
 }
 <div class="container">
     <form method="post" asp-action="Edit" enctype="multipart/form-data">
-        <input type="hidden" value="Id" id="Id" />
-
+        <input type="hidden" id="AppUserId" , name="AppUserId" asp-for="AppUserId" />
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
                 <label asp-for="Title">Title</label>
