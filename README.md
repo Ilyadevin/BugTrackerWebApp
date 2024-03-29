@@ -5,3 +5,5 @@ Add-Migration InitialCreate
 Update-Database
 
 Also it is nessesory to put YOUR APIs to settings.json
+
+To seed data, you should run the seeddata file. it will put two users into your db and you might be able to run your app correctly
