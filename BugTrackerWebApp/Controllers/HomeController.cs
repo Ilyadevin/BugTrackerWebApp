@@ -37,10 +37,6 @@ namespace BugTrackerWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Bug");
-            }
             var homeViewModel = new HomeViewModel();
             try
             {
