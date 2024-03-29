@@ -17,8 +17,15 @@ namespace BugTrackerWebApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Task_> tasks = await _taskRepository.GetAll();
-            return View(tasks);
+            if (User.Identity.IsAuthenticated)
+            {
+                IEnumerable<Task_> tasks = await _taskRepository.GetAll();
+                return View(tasks);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public async Task<IActionResult> Detail(int id)

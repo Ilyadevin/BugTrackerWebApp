@@ -21,16 +21,23 @@ namespace BugTrackerWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userTasks = await _dashboardRespository.GetAllUserTasks();
-            var userBugs = await _dashboardRespository.GetAllUserBugs();
-            var userProjects = await _dashboardRespository.GetAllUserProjects();
-            var dashboardViewModel = new DashboardViewModel()
+            if (User.Identity.IsAuthenticated)
             {
-                Tasks = userTasks,
-                Bugs = userBugs,
-                Projects = userProjects,
-            };
-            return View(dashboardViewModel);
+                var userTasks = await _dashboardRespository.GetAllUserTasks();
+                var userBugs = await _dashboardRespository.GetAllUserBugs();
+                var userProjects = await _dashboardRespository.GetAllUserProjects();
+                var dashboardViewModel = new DashboardViewModel()
+                {
+                    Tasks = userTasks,
+                    Bugs = userBugs,
+                    Projects = userProjects,
+                };
+                return View(dashboardViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }
