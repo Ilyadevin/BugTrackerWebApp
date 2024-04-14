@@ -15,7 +15,7 @@
             <p>@Model.Description</p>
             <h3 class="my-3">Task Details</h3>
             <ul>
-                <li>Task was created at: @Model.CreatedDate.Value.DayOfYear</li>
+                @* <li>Task was created at: @Model.CreatedDate.Value.DayOfYear</li> *@
                 @if (Model.CompletedDate is null)
                 {
                     <li>Task was not resolved yet</li>

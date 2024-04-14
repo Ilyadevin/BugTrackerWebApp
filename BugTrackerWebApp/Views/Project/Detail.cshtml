@@ -15,7 +15,7 @@
             <p>@Model.Description</p>
             <h3 class="my-3">Task Details</h3>
             <ul>
-                <li>Project was created at: @Model.StartDate.Value.DayOfYear</li>
+                @* <li>Project was created at: @Model.StartDate.Value.DayOfYear</li> *@
                 @if (Model.EndDate is null)
                 {
                     <li>Project was not finished yet</li>

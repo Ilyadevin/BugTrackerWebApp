@@ -22,6 +22,7 @@ namespace BugTrackerWebApp.Controllers
             IEnumerable<Bug> bugs = await _bugRepository.GetAll();
             return View(bugs);
         }
+        
 
         public async Task<IActionResult> Detail(int id)
         {
@@ -119,6 +120,24 @@ namespace BugTrackerWebApp.Controllers
             var bugDetails = await _bugRepository.GetByIdAsync(id);
             if (bugDetails == null) return View("Error");
             return View(bugDetails);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteBug(int id)
+        {
+            var clubDetails = await _bugRepository.GetByIdAsync(id);
+
+            if (clubDetails == null)
+            {
+                return View("Error");
+            }
+
+            if (!string.IsNullOrEmpty(clubDetails.ScreenShotOfError))
+            {
+                _ = _photoService.DeletePhotoAsync(clubDetails.ScreenShotOfError);
+            }
+
+            _bugRepository.Delete(clubDetails);
+            return RedirectToAction("Index");
         }
     }
 }
